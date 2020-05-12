@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ismarthealth.delaytask.server.mapper.ConsultationModelMapper">
+    <resultMap id="BaseResultMap" type="com.ismarthealth.osp.core.common.pojo.to.ConsultationModel">
+        <id column="id" property="id" jdbcType="CHAR"/>
+        <result column="customer_id" property="customerId" jdbcType="CHAR"/>
+        <result column="consultation_type" property="consultationType" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="gender" property="gender" jdbcType="INTEGER"/>
+        <result column="birthday" property="birthday" jdbcType="DATE"/>
+        <result column="theme_id" property="themeId" jdbcType="VARCHAR"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="source" property="source" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="answer_status" property="answerStatus" jdbcType="INTEGER"/>
+        <result column="answer_doctor_name" property="answerDoctorName" jdbcType="VARCHAR"/>
+        <result column="answer_time" property="answerTime" jdbcType="TIMESTAMP"/>
+        <!--<result column="customer_unanswer_time" property="customerUnanswerTime" jdbcType="TIMESTAMP" />-->
+        <!--<result column="mod_time" property="modTime" jdbcType="TIMESTAMP" />-->
+        <result column="channel" property="channel" jdbcType="CHAR"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    com_web_consultation.id as id, com_web_consultation.customer_id as customer_id, com_web_consultation.consultation_type as consultation_type, 
+    com_web_consultation.name as name, com_web_consultation.gender as gender, com_web_consultation.birthday as birthday, 
+    com_web_consultation.theme_id as theme_id, com_web_consultation.content as content, 
+    com_web_consultation.source as source, com_web_consultation.create_time as create_time, 
+    com_web_consultation.status as status, com_web_consultation.answer_status as answer_status, 
+    com_web_consultation.answer_doctor_name as answer_doctor_name, com_web_consultation.answer_time as answer_time, 
+    com_web_consultation.customer_unanswer_time as customer_unanswer_time, com_web_consultation.mod_time as mod_time, 
+    com_web_consultation.channel as channel
+  </sql>
+    <select id="selectByExample" resultMap="BaseResultMap"
+            parameterType="com.ismarthealth.osp.core.common.pojo.to.ConsultationModelExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from com_web_consultation
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+        <if test="pageSize != null and startPos!=null">
+            limit #{pageSize} offset #{startPos}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from com_web_consultation
+        where com_web_consultation.id = #{id,jdbcType=CHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from com_web_consultation
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.ismarthealth.osp.core.common.pojo.to.ConsultationModelExample">
+        delete from com_web_consultation
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.ismarthealth.osp.core.common.pojo.to.ConsultationModel">
+    insert into com_web_consultation (id, customer_id, consultation_type, 
+      name, gender, birthday, 
+      theme_id, content, source, 
+      create_time, status, answer_status, 
+      answer_doctor_name, answer_time, customer_unanswer_time, 
+      mod_time, channel)
+    values (#{id,jdbcType=CHAR}, #{customerId,jdbcType=CHAR}, #{consultationType,jdbcType=INTEGER}, 
+      #{name,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, #{birthday,jdbcType=DATE}, 
+      #{themeId,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{source,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, #{answerStatus,jdbcType=INTEGER}, 
+      #{answerDoctorName,jdbcType=VARCHAR}, #{answerTime,jdbcType=TIMESTAMP}, #{customerUnanswerTime,jdbcType=TIMESTAMP}, 
+      #{modTime,jdbcType=TIMESTAMP}, #{channel,jdbcType=CHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.ismarthealth.osp.core.common.pojo.to.ConsultationModel">
+        insert into com_web_consultation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="customerId != null">
+                customer_id,
+            </if>
+            <if test="consultationType != null">
+                consultation_type,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="gender != null">
+                gender,
+            </if>
+            <if test="birthday != null">
+                birthday,
+            </if>
+            <if test="themeId != null">
+                theme_id,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="source != null">
+                source,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="answerStatus != null">
+                answer_status,
+            </if>
+            <if test="answerDoctorName != null">
+                answer_doctor_name,
+            </if>
+            <if test="answerTime != null">
+                answer_time,
+            </if>
+            <if test="customerUnanswerTime != null">
+                customer_unanswer_time,
+            </if>
+            <if test="modTime != null">
+                mod_time,
+            </if>
+            <if test="channel != null">
+                channel,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=CHAR},
+            </if>
+            <if test="customerId != null">
+                #{customerId,jdbcType=CHAR},
+            </if>
+            <if test="consultationType != null">
+                #{consultationType,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null">
+                #{gender,jdbcType=INTEGER},
+            </if>
+            <if test="birthday != null">
+                #{birthday,jdbcType=DATE},
+            </if>
+            <if test="themeId != null">
+                #{themeId,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="source != null">
+                #{source,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="answerStatus != null">
+                #{answerStatus,jdbcType=INTEGER},
+            </if>
+            <if test="answerDoctorName != null">
+                #{answerDoctorName,jdbcType=VARCHAR},
+            </if>
+            <if test="answerTime != null">
+                #{answerTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="customerUnanswerTime != null">
+                #{customerUnanswerTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modTime != null">
+                #{modTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="channel != null">
+                #{channel,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.ismarthealth.osp.core.common.pojo.to.ConsultationModelExample"
+            resultType="java.lang.Integer">
+        select count(*) from com_web_consultation
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update com_web_consultation
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=CHAR},
+            </if>
+            <if test="record.customerId != null">
+                customer_id = #{record.customerId,jdbcType=CHAR},
+            </if>
+            <if test="record.consultationType != null">
+                consultation_type = #{record.consultationType,jdbcType=INTEGER},
+            </if>
+            <if test="record.name != null">
+                name = #{record.name,jdbcType=VARCHAR},
+            </if>
+            <if test="record.gender != null">
+                gender = #{record.gender,jdbcType=INTEGER},
+            </if>
+            <if test="record.birthday != null">
+                birthday = #{record.birthday,jdbcType=DATE},
+            </if>
+            <if test="record.themeId != null">
+                theme_id = #{record.themeId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.content != null">
+                content = #{record.content,jdbcType=VARCHAR},
+            </if>
+            <if test="record.source != null">
+                source = #{record.source,jdbcType=INTEGER},
+            </if>
+            <if test="record.createTime != null">
+                create_time = #{record.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.status != null">
+                status = #{record.status,jdbcType=INTEGER},
+            </if>
+            <if test="record.answerStatus != null">
+                answer_status = #{record.answerStatus,jdbcType=INTEGER},
+            </if>
+            <if test="record.answerDoctorName != null">
+                answer_doctor_name = #{record.answerDoctorName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.answerTime != null">
+                answer_time = #{record.answerTime,jdbcType=TIMESTAMP},
+            </if>
+            <!--<if test="record.customerUnanswerTime != null" >-->
+            <!--customer_unanswer_time = #{record.customerUnanswerTime,jdbcType=TIMESTAMP},-->
+            <!--</if>-->
+            <!--<if test="record.modTime != null" >-->
+            <!--mod_time = #{record.modTime,jdbcType=TIMESTAMP},-->
+            <!--</if>-->
+            <if test="record.channel != null">
+                channel = #{record.channel,jdbcType=CHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update com_web_consultation
+        set id = #{record.id,jdbcType=CHAR},
+        customer_id = #{record.customerId,jdbcType=CHAR},
+        consultation_type = #{record.consultationType,jdbcType=INTEGER},
+        name = #{record.name,jdbcType=VARCHAR},
+        gender = #{record.gender,jdbcType=INTEGER},
+        birthday = #{record.birthday,jdbcType=DATE},
+        theme_id = #{record.themeId,jdbcType=VARCHAR},
+        content = #{record.content,jdbcType=VARCHAR},
+        source = #{record.source,jdbcType=INTEGER},
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+        status = #{record.status,jdbcType=INTEGER},
+        answer_status = #{record.answerStatus,jdbcType=INTEGER},
+        answer_doctor_name = #{record.answerDoctorName,jdbcType=VARCHAR},
+        answer_time = #{record.answerTime,jdbcType=TIMESTAMP},
+        customer_unanswer_time = #{record.customerUnanswerTime,jdbcType=TIMESTAMP},
+        mod_time = #{record.modTime,jdbcType=TIMESTAMP},
+        channel = #{record.channel,jdbcType=CHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.ismarthealth.osp.core.common.pojo.to.ConsultationModel">
+        update com_web_consultation
+        <set>
+            <if test="customerId != null">
+                customer_id = #{customerId,jdbcType=CHAR},
+            </if>
+            <if test="consultationType != null">
+                consultation_type = #{consultationType,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null">
+                gender = #{gender,jdbcType=INTEGER},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday,jdbcType=DATE},
+            </if>
+            <if test="themeId != null">
+                theme_id = #{themeId,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="source != null">
+                source = #{source,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="answerStatus != null">
+                answer_status = #{answerStatus,jdbcType=INTEGER},
+            </if>
+            <if test="answerDoctorName != null">
+                answer_doctor_name = #{answerDoctorName,jdbcType=VARCHAR},
+            </if>
+            <if test="answerTime != null">
+                answer_time = #{answerTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="customerUnanswerTime != null">
+                customer_unanswer_time = #{customerUnanswerTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modTime != null">
+                mod_time = #{modTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="channel != null">
+                channel = #{channel,jdbcType=CHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=CHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.ismarthealth.osp.core.common.pojo.to.ConsultationModel">
+    update com_web_consultation
+    set customer_id = #{customerId,jdbcType=CHAR},
+      consultation_type = #{consultationType,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=INTEGER},
+      birthday = #{birthday,jdbcType=DATE},
+      theme_id = #{themeId,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      source = #{source,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      answer_status = #{answerStatus,jdbcType=INTEGER},
+      answer_doctor_name = #{answerDoctorName,jdbcType=VARCHAR},
+      answer_time = #{answerTime,jdbcType=TIMESTAMP},
+      customer_unanswer_time = #{customerUnanswerTime,jdbcType=TIMESTAMP},
+      mod_time = #{modTime,jdbcType=TIMESTAMP},
+      channel = #{channel,jdbcType=CHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+    <select id="selectOneByExample" resultMap="BaseResultMap"
+            parameterType="com.ismarthealth.osp.core.common.pojo.to.ConsultationModelExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from com_web_consultation
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+        limit 1
+    </select>
+</mapper>
